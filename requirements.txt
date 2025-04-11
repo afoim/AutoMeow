@@ -1,0 +1,4 @@
+keyboard>=0.13.5
+Pillow>=9.5.0; platform_system=="Windows"
+pystray>=0.19.4
+pyinstaller>=6.3.0
