@@ -1,0 +1,36 @@
+name: AutoMeow Build
+
+on:
+  push:
+    branches: ['*']
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  build:
+    name: Build Executable
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build with PyInstaller
+      run: |
+        pyinstaller --clean --noconsole --onefile auto_meow.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AutoMeow-Build
+        path: dist/auto_meow.exe
